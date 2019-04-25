@@ -12,19 +12,28 @@ import Contact from "./pages/ContactPage";
 import SingleProduct from "./pages/SingleProductPage";
 import Default from "./pages/DefaultPage";
 
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import SideCart from "./components/SideCart";
+import Footer from "./components/Footer";
+
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         {/** navbar, sidebar, cart */}
+        <Navbar />
+        <Sidebar />
+        <SideCart />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/products" exact component={Products} />
-          <Route path="/product/:id" exact component={SingleProduct} />
+          <Route path="/products/:id" exact component={SingleProduct} />
           <Route component={Default} />
         </Switch>
+        <Footer />
       </React.Fragment>
     );
   }

@@ -23,12 +23,13 @@ const CartWrapper = styled.div`
   right: 0;
   width: 100%;
   height: 100%;
-  background: var (--mainGrey);
-  z-index: 1;
+  background: var(--mainGrey);
+  transform: ${props => (props.show ? "translateX(0)" : "translate(100%)")};
+  transition: var(--mainTransition);
+
   border-left: 4px solid var(--primaryColor);
   @media (min-width: 576px) {
     width: 20rem;
   }
-  transform: ${props => (props.show ? "translateX(0)" : "translate(100%)")};
-  transition: var(--mainTransition);
+  z-index: 1;
 `;

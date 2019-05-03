@@ -25,7 +25,13 @@ class ProductProvider extends Component {
     filteredProducts: [],
     featuredProducts: [], //producst to show in home page
     singleProduct: {},
-    loading: false
+    loading: false,
+    seacrh: "",
+    min: 0,
+    max: 0,
+    price: 0,
+    company: "all",
+    shipping: false
   };
 
   componentDidMount() {
@@ -47,6 +53,14 @@ class ProductProvider extends Component {
     //featured products
     let featuredProducts = storeProducts.filter(item => item.featured === true);
 
+    //set the properties to make the search
+    //min price, max price...
+    //get max price
+    let maxPrice = Math.max(...storeProducts.map(item => item.price));
+    //console.log(`max pric: ${maxPrice}`);
+    //get min price
+    //let minPrice = Math.min(...storeProducts.map(item => item.price));
+
     this.setState(
       {
         storeProducts: storeProducts,
@@ -54,7 +68,9 @@ class ProductProvider extends Component {
         featuredProducts,
         cart: this.getStorageCart(),
         singleProduct: this.getStorageProduct(),
-        loading: true
+        loading: true,
+        price: maxPrice,
+        max: maxPrice
       },
       () => this.addTotals()
     );
@@ -257,6 +273,16 @@ class ProductProvider extends Component {
     );
   };
 
+  //functions to make the search
+  //handle filtering
+  handleChange = e => {
+    console.log("handle change search");
+  };
+
+  sortData = () => {
+    console.log("sort data method");
+  };
+
   render() {
     return (
       <ProductContext.Provider
@@ -271,7 +297,8 @@ class ProductProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          handleChange: this.handleChange
         }}
       >
         {this.props.children}

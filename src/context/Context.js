@@ -62,7 +62,14 @@ class ProductProvider extends Component {
 
   //getStorageCart --> cart items are saved in the local storage
   getStorageCart = () => {
-    return [];
+    let cart;
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+      return cart;
+    } else {
+      cart = [];
+    }
+    return cart;
   };
   //get products from local storage
   getStorageProduct = () => {
@@ -104,7 +111,9 @@ class ProductProvider extends Component {
   };
 
   //sync storage
-  syncStorage = () => {};
+  syncStorage = () => {
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
+  };
   //addToCart
   addToCart = id => {
     console.log(`add to cart ${id}`);

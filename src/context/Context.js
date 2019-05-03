@@ -67,12 +67,41 @@ class ProductProvider extends Component {
   //get total from local storage
   getTotal = () => {};
   //add totals
-  addTotal = () => {};
+  addTotals = () => {};
   //sync storage
   syncStorage = () => {};
   //addToCart
   addToCart = id => {
     console.log(`add to cart ${id}`);
+    let tempCart = [...this.state.cart];
+    let tempProducts = [...this.state.storeProducts];
+
+    //check wich procut is in the cart
+    let tempItem = tempCart.find(item => item.id === id);
+    if (!tempItem) {
+      //add to the cart
+      tempItem = tempProducts.find(item => item.id === id);
+      let total = tempItem.price;
+      let cartItem = { ...tempItem, count: 1, total };
+      tempCart = [...tempCart, cartItem];
+    } else {
+      //Item is already in the cart
+      tempItem.count++;
+      tempItem.total = tempItem.price * tempItem.count;
+      tempItem.total = parseFloat(tempItem.total.toFixed(2));
+    }
+    this.setState(
+      () => {
+        return { cart: tempCart };
+      },
+      () => {
+        //State is async --> exec these functions when the state is updated
+
+        this.addTotals();
+        this.syncStorage();
+        this.openCart();
+      }
+    );
   };
   //set single product
   setSingleProduct = id => {

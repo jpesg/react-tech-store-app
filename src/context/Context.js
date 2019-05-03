@@ -4,6 +4,7 @@ import { linkData } from "./linkData";
 import { socialData } from "./socialData";
 
 import { items } from "./productData";
+import { tsImportEqualsDeclaration } from "@babel/types";
 
 const ProductContext = React.createContext();
 //Provider
@@ -16,8 +17,8 @@ class ProductProvider extends Component {
     links: linkData,
     socialIcons: socialData,
     cart: [],
-    cartItems: 0,
-    cartSubTotal: 0,
+    cartItems: 0, //Items in the cart
+    cartSubTotal: 0, //Amount
     cartTax: 0,
     cartTotal: 0,
     storeProducts: [],
@@ -46,14 +47,17 @@ class ProductProvider extends Component {
     //featured products
     let featuredProducts = storeProducts.filter(item => item.featured === true);
 
-    this.setState({
-      storeProducts: storeProducts,
-      filteredProducts: storeProducts,
-      featuredProducts,
-      cart: this.getStorageCart(),
-      singleProduct: this.getStorageProduct(),
-      loading: false
-    });
+    this.setState(
+      {
+        storeProducts: storeProducts,
+        filteredProducts: storeProducts,
+        featuredProducts,
+        cart: this.getStorageCart(),
+        singleProduct: this.getStorageProduct(),
+        loading: false
+      },
+      () => this.addTotals()
+    );
   };
 
   //getStorageCart --> cart items are saved in the local storage
@@ -65,9 +69,40 @@ class ProductProvider extends Component {
     return [];
   };
   //get total from local storage
-  getTotal = () => {};
+  getTotal = () => {
+    let subTotal = 0;
+    let cartItems = 0;
+
+    this.state.cart.forEach(item => {
+      subTotal += item.total;
+      cartItems += item.count;
+    });
+
+    subTotal = parseFloat(subTotal.toFixed(2));
+    let tax = subTotal * 0.1;
+    tax = parseFloat(tax.toFixed(2));
+
+    let total = subTotal + tax;
+    total = parseFloat(total.toFixed(2));
+
+    return {
+      cartItems,
+      subTotal,
+      tax,
+      total
+    };
+  };
   //add totals
-  addTotals = () => {};
+  addTotals = () => {
+    const totals = this.getTotal();
+    this.setState({
+      cartItems: totals.cartItems,
+      cartSubTotal: totals.subTotal,
+      cartTax: totals.tax,
+      cartTotal: totals.total
+    });
+  };
+
   //sync storage
   syncStorage = () => {};
   //addToCart

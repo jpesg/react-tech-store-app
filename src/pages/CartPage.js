@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import Cart from "../components/CartPage";
+import Hero from "../components/Hero";
+import cartBcg from "../images/storeBcg.jpeg";
+
+import CartSection from "../components/CartPage";
+
 export default class CartPage extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1>about Cart</h1>
-        <Cart />
+        <Hero img={cartBcg} />
+        <CartSection />
       </React.Fragment>
     );
   }

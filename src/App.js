@@ -11,6 +11,7 @@ import Products from "./pages/ProductsPage";
 import Contact from "./pages/ContactPage";
 import SingleProduct from "./pages/SingleProductPage";
 import Default from "./pages/DefaultPage";
+import CartPage from "./pages/CartPage";
 
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -31,6 +32,7 @@ class App extends Component {
           <Route path="/contact" component={Contact} />
           <Route path="/products" exact component={Products} />
           <Route path="/products/:id" exact component={SingleProduct} />
+          <Route path="/cart" component={CartPage} />
           <Route component={Default} />
         </Switch>
         <Footer />

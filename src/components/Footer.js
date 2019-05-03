@@ -43,7 +43,7 @@ const FooterWrapper = styled.footer`
     color: var(--mainWhite);
     transition: var(--mainTransition);
   }
-  .icon: hover {
+  .icon:hover {
     color: var(--primaryColor);
     cursor: pointer;
   }

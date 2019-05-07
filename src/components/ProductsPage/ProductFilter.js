@@ -17,6 +17,21 @@ export default function ProductFilter() {
           handleChange,
           storeProducts
         } = value;
+
+        let companies = new Set();
+        companies.add("all");
+        console.log(storeProducts);
+
+        for (let product in storeProducts) {
+          console.log(product);
+          companies.add(storeProducts[product]["company"]);
+          console.log(companies);
+        }
+
+        console.log(companies);
+        //let companies = storeProducts.map(item => item.company);
+        companies = [...companies]; //convert to array
+        console.log(companies);
         return (
           <div className="row my-5">
             <div className="col-10 mx-auto">
@@ -42,13 +57,17 @@ export default function ProductFilter() {
                   <select
                     name="company"
                     id="company"
-                    className="filter-item"
                     onChange={handleChange}
                     value={company}
+                    className="filter-item"
                   >
-                    <option value="all">all</option>
-                    <option value="htc">htc</option>
-                    <option value="fuji">fuji</option>
+                    {companies.map((company, index) => {
+                      return (
+                        <option key={index} value={company}>
+                          {company}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
                 {/** end of category-company search*/}
@@ -84,7 +103,7 @@ export default function ProductFilter() {
                     id="shipping"
                     className="filter-item"
                     onChange={handleChange}
-                    value={shipping && true}
+                    checked={shipping && true}
                   />
                 </div>
                 {/** end of free shipping */}

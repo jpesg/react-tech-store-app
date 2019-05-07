@@ -31,7 +31,7 @@ class ProductProvider extends Component {
     max: 0,
     price: 0,
     company: "all",
-    shipping: false
+    shipping: true
   };
 
   componentDidMount() {

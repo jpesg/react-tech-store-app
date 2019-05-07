@@ -275,8 +275,21 @@ class ProductProvider extends Component {
 
   //functions to make the search
   //handle filtering
-  handleChange = e => {
+  handleChange = event => {
     console.log("handle change search");
+    const name = event.target.name;
+    const value =
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
+    console.log(`handleChange: ${name}: ${value}`);
+
+    this.setState(
+      {
+        [name]: value
+      },
+      () => this.sortData()
+    );
   };
 
   sortData = () => {

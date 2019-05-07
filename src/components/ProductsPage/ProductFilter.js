@@ -94,7 +94,7 @@ export default function ProductFilter() {
 
                 {/** free shipping */}
                 <div>
-                  <label htmFor="shipping" className="mx-2">
+                  <label htmlFor="shipping" className="mx-2">
                     free shipping
                   </label>
                   <input

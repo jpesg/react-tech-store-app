@@ -26,12 +26,12 @@ class ProductProvider extends Component {
     featuredProducts: [], //producst to show in home page
     singleProduct: {},
     loading: false,
-    seacrh: "",
+    search: "",
     min: 0,
     max: 0,
     price: 0,
     company: "all",
-    shipping: true
+    shipping: false
   };
 
   componentDidMount() {
@@ -289,11 +289,48 @@ class ProductProvider extends Component {
         [name]: value
       },
       () => this.sortData()
+      //this.sortData --> otra forma de ejecutar la funcion
     );
   };
 
   sortData = () => {
     console.log("sort data method");
+    const { storeProducts, price, company, shipping, search } = this.state;
+
+    let tempPrice = parseInt(price); //its a string
+    console.log(price);
+    let tempProducts = [...storeProducts];
+    console.log(tempProducts);
+    //filtering based on price
+    tempProducts = tempProducts.filter(item => item.price <= tempPrice);
+
+    //filtering based on shipping
+    if (shipping) {
+      tempProducts = tempProducts.filter(item => item.freeShipping === true);
+    }
+
+    //filtering based on company
+
+    if (company !== "all") {
+      tempProducts = tempProducts.filter(item => item.company === company);
+    }
+
+    //filtering based on search
+    if (search.length > 0) {
+      console.log("seacr");
+
+      tempProducts = tempProducts.filter(item => {
+        let tempSearch = search.toLowerCase();
+        let tempTitle = item.title.toLowerCase().slice(0, search.length);
+        if (tempSearch === tempTitle) {
+          return item;
+        } //probar con reduce ******************************
+      });
+    }
+
+    this.setState({
+      filteredProducts: tempProducts
+    });
   };
 
   render() {

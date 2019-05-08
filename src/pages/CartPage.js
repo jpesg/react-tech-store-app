@@ -4,13 +4,11 @@ import cartBcg from "../images/storeBcg.jpeg";
 
 import CartSection from "../components/CartPage";
 
-export default class CartPage extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Hero img={cartBcg} />
-        <CartSection />
-      </React.Fragment>
-    );
-  }
+export default function CartPage(props) {
+  return (
+    <React.Fragment>
+      <Hero img={cartBcg} />
+      <CartSection history={props.history} />
+    </React.Fragment>
+  );
 }

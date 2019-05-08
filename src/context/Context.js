@@ -6,9 +6,13 @@ import { socialData } from "./socialData";
 import { items } from "./productData";
 import { tsImportEqualsDeclaration } from "@babel/types";
 
+//import client contentful
+import { client } from "./contentful";
+
 const ProductContext = React.createContext();
 //Provider
 //Consumer
+
 class ProductProvider extends Component {
   state = {
     sidebarOpen: false,
@@ -36,9 +40,15 @@ class ProductProvider extends Component {
 
   componentDidMount() {
     //from contentful
+    client
+      .getEntries({
+        content_type: "techStoreProducts"
+      })
+      .then(response => this.setProducts(response.items))
+      .catch(console.error);
 
     //from local data
-    this.setProducts(items);
+    //this.setProducts(items);
   }
 
   //

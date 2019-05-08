@@ -30,8 +30,8 @@ export default class SingleProductPage extends Component {
                   <div className="row">
                     <div className="col-10 mx-auto col-sm-8 col-md-6 my-3">
                       <img
-                        src={`../${image}`} //is local data
-                        //src={image}
+                        src={image}
+                        //src={`../${item.image}`} //images from the local storage
                         alt="single product"
                         className="img-fluid"
                       />
